@@ -1,5 +1,5 @@
-import { InputHTMLAttributes, useState, forwardRef } from "react";
-import styled, { css } from "styled-components";
+import { useState } from "react";
+import styled from "styled-components";
 import { motion, MotionStyle, TargetAndTransition } from "framer-motion";
 import { MdClose, MdSearch } from "react-icons/md";
 import React from "react";
@@ -81,10 +81,10 @@ const InputStyled = styled.input`
   outline: none;
 `;
 
-const placeHolderStyle = css`
-  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff,
-    1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
-`;
+// const placeHolderStyle = css`
+//   text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff,
+//     1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+// `;
 
 const LeftIconStyle = styled.div`
   position: absolute;
@@ -104,8 +104,16 @@ const RightIconStyle = styled.div`
   align-items: center;
 `;
 
-const InputContainer = styled.div`
+const InputContainer = styled.p`
   width: 300px;
   display: flex;
   position: relative;
+`;
+
+export const Buttons = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin: 10px;
 `;

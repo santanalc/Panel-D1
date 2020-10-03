@@ -17,6 +17,7 @@ import {
 import { MdAdd } from "react-icons/md";
 import Journey from "../components/Journey/Journey";
 import Table from "../components/Table/Table";
+import Modal from "../components/Modal/Modal";
 
 interface Journey {
   name: String;
@@ -37,6 +38,7 @@ function Panel() {
   const [info, setInfo] = useState<Info[]>([]);
   const [filter, setFilter] = useState(0);
   const firstUpdate = useRef(true);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -133,9 +135,9 @@ function Panel() {
               value={input}
               onChangeText={(txt) => setInput(txt)}
               onPressRightIcon={() => setInput("")}
-              onPressLeftIcon={() => console.log("OI")}
+              onPressLeftIcon={() => console.log("Buscar")}
             />
-            <SearchButton>
+            <SearchButton onClick={() => setShowModal(true)}>
               <MdAdd fontSize={20} />
               <p>Nova Jornada</p>
             </SearchButton>
@@ -150,6 +152,13 @@ function Panel() {
           <Table journeys={journeys} />
         </TableContainer>
       </PanelContainer>
+
+      <Modal
+        closeModal={() => {
+          setShowModal(false);
+        }}
+        showModal={showModal}
+      />
     </PanelDiv>
   );
 }
