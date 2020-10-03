@@ -1,10 +1,11 @@
+import { motion } from "framer-motion";
 import styled, { css } from "styled-components";
 
 interface Props {
   selected: boolean;
 }
 
-export const TableBody = styled.div`
+export const TableBody = styled(motion.div)`
   display: flex;
   flex-direction: column;
   width: 750px;
@@ -17,7 +18,7 @@ export const RowHead = styled.div`
   height: 35px;
 `;
 
-export const RowTable = styled.div`
+export const RowTable = styled(motion.div)`
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr;
   background-color: #ffffff;

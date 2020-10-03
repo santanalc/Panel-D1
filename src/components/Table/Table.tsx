@@ -15,6 +15,7 @@ import Bed from "../../images/TableIcons/bed.svg";
 import Check from "../../images/TableIcons/check.svg";
 import { LogoText, Text } from "../Journey/styles";
 import { Icon } from "../Navbar/styles";
+import { Variants, AnimatePresence } from "framer-motion";
 
 interface Journey {
   name: String;
@@ -68,26 +69,43 @@ function GetStatus(status: number) {
   }
 }
 
+let RootAnimation: Variants = {
+  exit: { y: 20, opacity: 0 },
+  enter: { y: 0, opacity: 1 },
+};
+
 function Table(props: Props) {
   const { journeys } = props;
 
   return (
-    <TableBody>
-      <RowHead>
-        <NameTitle>Nome</NameTitle>
-        <TableTitle>Destinatários</TableTitle>
-        <TableTitle>Sucesso</TableTitle>
-        <TableTitle>Status</TableTitle>
-      </RowHead>
-      {journeys.map((el) => (
-        <RowTable>
-          <NameCell>{el.name}</NameCell>
-          <Cell>{el.recipients}</Cell>
-          <Cell>{el.success}</Cell>
-          <Cell>{GetStatus(el.status)}</Cell>
-        </RowTable>
-      ))}
-    </TableBody>
+    <AnimatePresence>
+      <TableBody
+        initial={"exit"}
+        animate={"enter"}
+        exit={"exit"}
+        variants={RootAnimation}
+      >
+        <RowHead>
+          <NameTitle>Nome</NameTitle>
+          <TableTitle>Destinatários</TableTitle>
+          <TableTitle>Sucesso</TableTitle>
+          <TableTitle>Status</TableTitle>
+        </RowHead>
+        {journeys.map((el) => (
+          <RowTable
+            initial={"exit"}
+            animate={"enter"}
+            exit={"exit"}
+            variants={RootAnimation}
+          >
+            <NameCell>{el.name}</NameCell>
+            <Cell>{el.recipients}</Cell>
+            <Cell>{el.success}</Cell>
+            <Cell>{GetStatus(el.status)}</Cell>
+          </RowTable>
+        ))}
+      </TableBody>
+    </AnimatePresence>
   );
 }
 
