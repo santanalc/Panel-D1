@@ -1,5 +1,13 @@
 import styled, { css } from "styled-components";
-
+import { ReactComponent as ChartPie } from "../../images/NavIcons/chart-pie.svg";
+import { ReactComponent as Cloud } from "../../images/NavIcons/ccm-cloud.svg";
+import { ReactComponent as Arrows } from "../../images/NavIcons/exchange-alt.svg";
+import { ReactComponent as ExternalLink } from "../../images/NavIcons/external-link-alt-solid.svg";
+import { ReactComponent as Diamond } from "../../images/NavIcons/gem.svg";
+import { ReactComponent as Rocket } from "../../images/NavIcons/rocket.svg";
+import { ReactComponent as SignOut } from "../../images/NavIcons/sign-out-alt.svg";
+import { ReactComponent as Tools } from "../../images/NavIcons/tools.svg";
+import { ReactComponent as Users } from "../../images/NavIcons/user-friends.svg";
 interface Props {
   position: String;
 }
@@ -45,8 +53,46 @@ export const Icon = styled.img`
   height: 20px;
   margin: 10px;
 `;
+
 export const Logo = styled.img`
   width: 30px;
   height: 17px;
   margin: 50px 10px 10px 10px;
+`;
+
+export const NavIcon = css`
+  width: 20px;
+  height: 20px;
+  margin: 10px;
+  &:hover {
+    fill: #117eff;
+  }
+`;
+
+export const ChartPieIcon = styled(ChartPie)`
+  ${NavIcon}
+`;
+export const CloudIcon = styled(Cloud)`
+  ${NavIcon}
+`;
+export const ArrowsIcon = styled(Arrows)`
+  ${NavIcon}
+`;
+export const ExternalLinkIcon = styled(ExternalLink)`
+  ${NavIcon}
+`;
+export const DiamondIcon = styled(Diamond)`
+  ${NavIcon}
+`;
+export const RocketIcon = styled(Rocket)`
+  ${NavIcon}
+`;
+export const SignOutIcon = styled(SignOut)`
+  ${NavIcon}
+`;
+export const ToolsIcon = styled(Tools)`
+  ${NavIcon}
+`;
+export const UsersIcon = styled(Users)`
+  ${NavIcon}
 `;
