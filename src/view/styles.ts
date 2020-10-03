@@ -45,7 +45,6 @@ export const TopBar = styled.div`
   ${SpaceBetween};
   height: 100%;
   width: 100%;
-  background-color: red;
 `;
 
 export const LogoBar = styled.div`
@@ -60,7 +59,6 @@ export const LogoUser = styled.div`
   border-radius: 30px;
   background: #117eff;
   color: white;
-  font: normal normal bold 14px/18px Gotham;
   cursor: default;
 `;
 
@@ -71,13 +69,11 @@ export const SearchContainer = styled.div`
 
 export const JourneyContainer = styled.div`
   grid-area: journey;
-  background-color: green;
 `;
 
 export const TableContainer = styled.div`
   grid-area: table;
-  overflow-y: auto;
-  background-color: black;
+  ${Center};
 `;
 
 export const SearchButton = styled.button`
@@ -88,7 +84,6 @@ export const SearchButton = styled.button`
   outline: none;
   border: none;
   border-radius: 5px;
-  font: normal normal bold 13px/14px Gotham;
   color: #ffffff;
   margin-left: 15px;
   &:hover {

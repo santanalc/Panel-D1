@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import StyledInput from "../components/StyledInput/StyledInput";
 import Acme from "../images/Logos/acme-logo.png";
@@ -15,9 +15,105 @@ import {
   TopBar,
 } from "./styles";
 import { MdAdd } from "react-icons/md";
+import Journey from "../components/Journey/Journey";
+import Table from "../components/Table/Table";
+
+interface Journey {
+  name: String;
+  recipients: String;
+  success: String;
+  status: number;
+}
+
+interface Info {
+  id: number;
+  name: String;
+  quantity: number;
+}
 
 function Panel() {
-  const [journey, setJourney] = useState("");
+  const [input, setInput] = useState("");
+  const [journeys, setJourneys] = useState<Journey[]>([]);
+  const [info, setInfo] = useState<Info[]>([]);
+  const [filter, setFilter] = useState(0);
+  const firstUpdate = useRef(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        let response = await fetch(
+          `https://api-d1-test.herokuapp.com/api/journey`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        let responseObject = await response.json();
+        setJourneys(responseObject);
+
+        let responseInfo = await fetch(
+          `https://api-d1-test.herokuapp.com/api/filter`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        let responseInfoObject = await responseInfo.json();
+        setInfo(responseInfoObject);
+      } catch {
+        console.log("error");
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (firstUpdate.current) {
+      setTimeout(() => (firstUpdate.current = false), 500);
+      return;
+    }
+
+    if (filter === 0) {
+      (async () => {
+        try {
+          let response = await fetch(
+            `https://api-d1-test.herokuapp.com/api/journey`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          let responseObject = await response.json();
+          setJourneys(responseObject);
+        } catch {
+          console.log("error");
+        }
+      })();
+    } else {
+      (async () => {
+        try {
+          let response = await fetch(
+            `https://api-d1-test.herokuapp.com/api/journey/${filter}`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          let responseObject = await response.json();
+          setJourneys(responseObject);
+        } catch {
+          console.log("error");
+        }
+      })();
+    }
+  }, [filter]);
 
   return (
     <PanelDiv>
@@ -34,9 +130,9 @@ function Panel() {
           </LogoBar>
           <SearchContainer>
             <StyledInput
-              value={journey}
-              onChangeText={(txt) => setJourney(txt)}
-              onPressRightIcon={() => setJourney("")}
+              value={input}
+              onChangeText={(txt) => setInput(txt)}
+              onPressRightIcon={() => setInput("")}
               onPressLeftIcon={() => console.log("OI")}
             />
             <SearchButton>
@@ -46,9 +142,13 @@ function Panel() {
           </SearchContainer>
         </TopBar>
 
-        <JourneyContainer></JourneyContainer>
+        <JourneyContainer>
+          <Journey info={info} filter={filter} setFilter={setFilter} />
+        </JourneyContainer>
 
-        <TableContainer></TableContainer>
+        <TableContainer>
+          <Table journeys={journeys} />
+        </TableContainer>
       </PanelContainer>
     </PanelDiv>
   );
